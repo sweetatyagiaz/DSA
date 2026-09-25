@@ -865,7 +865,6 @@ plot_tree(
 plt.show()
 ```
 
---------------------------------------------------
 
 ## Important Hyperparameters
 
@@ -884,7 +883,6 @@ DecisionTreeRegressor(
 | Small | Underfitting |
 | Large | Overfitting |
 
---------------------------------------------------
 
 ### min_samples_split
 
@@ -896,7 +894,6 @@ DecisionTreeRegressor(
 )
 ```
 
---------------------------------------------------
 
 ### min_samples_leaf
 
@@ -908,8 +905,6 @@ DecisionTreeRegressor(
 )
 ```
 
---------------------------------------------------
-
 ### max_features
 
 Number of features considered for splitting.
@@ -919,8 +914,6 @@ DecisionTreeRegressor(
     max_features="sqrt"
 )
 ```
-
---------------------------------------------------
 
 ## Hyperparameter Tuning
 
@@ -945,8 +938,6 @@ grid.fit(X, y)
 print(grid.best_params_)
 ```
 
---------------------------------------------------
-
 ## Feature Importance
 
 Decision Trees can estimate feature importance.
@@ -969,8 +960,6 @@ Age          0.42
 Income       0.33
 Experience   0.25
 ```
-
---------------------------------------------------
 
 ## Linear Regression vs Decision Tree Regression
 
