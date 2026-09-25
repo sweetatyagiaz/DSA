@@ -1600,7 +1600,6 @@ Higher is better.
 
 ✅ Useful for forecasting
 
----
 
 # Limitations of Regression
 
