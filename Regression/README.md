@@ -29,6 +29,28 @@ The goal is to minimize prediction error and find the best-fitting function.
 
 ---
 
+# Regression Workflow
+
+```text
+Data Collection
+       ↓
+Data Cleaning
+       ↓
+Feature Engineering
+       ↓
+Train-Test Split
+       ↓
+Model Training
+       ↓
+Prediction
+       ↓
+Evaluation
+       ↓
+Deployment
+```
+
+---
+
 # Types of Regression
 
 ## 1. Linear Regression
@@ -1524,65 +1546,10 @@ Gradient Boosting Regression is a powerful ensemble learning algorithm that buil
 
 ---
 
-# Linear Regression Visualization
-
-The objective is to find the best-fit line that minimizes the distance between actual and predicted values.
-
-
-::contentReference[oaicite:0]{index=0}
-
-
----
-
-# Assumptions of Linear Regression
-
-## 1. Linearity
-
-Independent variables should have a linear relationship with the target.
-
-## 2. Independence
-
-Observations should be independent.
-
-## 3. Homoscedasticity
-
-Variance of residuals should remain constant.
-
-## 4. Normality
-
-Residuals should follow a normal distribution.
-
-## 5. No Multicollinearity
-
-Independent variables should not be highly correlated.
-
----
-
-# Regression Workflow
-
-```text
-Data Collection
-       ↓
-Data Cleaning
-       ↓
-Feature Engineering
-       ↓
-Train-Test Split
-       ↓
-Model Training
-       ↓
-Prediction
-       ↓
-Evaluation
-       ↓
-Deployment
-```
-
----
 
 # Evaluation Metrics
 
-## Mean Absolute Error (MAE)
+## 1. Mean Absolute Error (MAE)
 
 MAE = (1/n) Σ |Yi - Ŷi|
 
@@ -1592,7 +1559,7 @@ Lower is better.
 
 ---
 
-## Mean Squared Error (MSE)
+## 2. Mean Squared Error (MSE)
 
 MSE = (1/n) Σ (Yi - Ŷi)²
 
@@ -1602,7 +1569,7 @@ Lower is better.
 
 ---
 
-## Root Mean Squared Error (RMSE)
+## 3. Root Mean Squared Error (RMSE)
 
 RMSE = √MSE
 
@@ -1612,7 +1579,7 @@ Lower is better.
 
 ---
 
-## R² Score
+## 4. R² Score
 
 R² = 1 - (SSres / SStot)
 
