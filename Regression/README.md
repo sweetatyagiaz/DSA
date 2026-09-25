@@ -1019,10 +1019,6 @@ Random Forest Regression is an ensemble learning algorithm that combines multipl
 
 It is one of the most popular machine learning algorithms for regression tasks because it can capture complex non-linear relationships while maintaining strong generalization performance.
 
-Advantages:
-- High accuracy
-- Reduces overfitting
-
 
 ### How Random Forest Works
 
@@ -1048,7 +1044,6 @@ Average Predictions
 Final Prediction
 ```
 
---------------------------------------------------
 
 ### Prediction Formula
 
@@ -1072,7 +1067,6 @@ Where:
 | N | Number of Trees |
 | Treei | Prediction from Tree i |
 
---------------------------------------------------
 
 ## Why Use Random Forest Regression?
 
