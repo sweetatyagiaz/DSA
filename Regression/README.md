@@ -803,15 +803,6 @@ Support Vector Regression (SVR) extends the principles of Support Vector Machine
 
 ## 7. Decision Tree Regression
 
-Uses tree-based splitting to predict continuous values.
-
-Advantages:
-- Easy interpretation
-- Handles non-linear data
-
-
-## Decision Tree Regression
-
 Decision Tree Regression is a non-linear supervised learning algorithm that predicts continuous values by recursively splitting the dataset into smaller subsets based on feature values. The model creates a tree-like structure where each internal node represents a decision rule and each leaf node contains the predicted value.
 
 Unlike Linear Regression, Decision Tree Regression can capture complex non-linear relationships without requiring feature transformations.
@@ -825,7 +816,6 @@ Unlike Linear Regression, Decision Tree Regression can capture complex non-linea
 5. Stop when a stopping criterion is met.
 6. Use the average target value in a leaf node as the prediction.
 
---------------------------------------------------
 
 ### Splitting Criterion
 
@@ -845,9 +835,7 @@ Where:
 
 The algorithm selects the split that minimizes the overall MSE.
 
---------------------------------------------------
-
-## Why Use Decision Tree Regression?
+### Why Use Decision Tree Regression?
 
 - Captures non-linear relationships
 - No feature scaling required
