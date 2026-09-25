@@ -73,6 +73,225 @@ Y = b₀ + b₁X + b₂X² + ... + bₙXⁿ
 
 Predicting growth trends or market cycles.
 
+## Polynomial Regression
+
+Polynomial Regression is an extension of Linear Regression that models non-linear relationships between features and the target variable by introducing polynomial terms.
+
+### Mathematical Formula
+
+For degree 2:
+
+\[
+Y = b_0 + b_1X + b_2X^2
+\]
+
+For degree n:
+
+\[
+Y = b_0 + b_1X + b_2X^2 + ... + b_nX^n
+\]
+
+### Python Implementation
+
+```python
+import numpy as np
+
+
+class PolynomialRegression:
+    def __init__(self, degree=2):
+        self.degree = degree
+        self.coefficients = None
+
+    def _create_polynomial_features(self, X):
+        X = np.array(X).reshape(-1, 1)
+
+        features = np.ones((len(X), 1))
+
+        for d in range(1, self.degree + 1):
+            features = np.hstack((features, X ** d))
+
+        return features
+
+    def fit(self, X, y):
+        X_poly = self._create_polynomial_features(X)
+
+        self.coefficients = np.linalg.inv(
+            X_poly.T @ X_poly
+        ) @ X_poly.T @ y
+
+    def predict(self, X):
+        X_poly = self._create_polynomial_features(X)
+        return X_poly @ self.coefficients
+
+    def score(self, X, y):
+        predictions = self.predict(X)
+
+        ss_total = np.sum((y - np.mean(y)) ** 2)
+        ss_residual = np.sum((y - predictions) ** 2)
+
+        return 1 - (ss_residual / ss_total)
+```
+
+### Example Usage
+
+```python
+import numpy as np
+
+X = np.array([1, 2, 3, 4, 5, 6])
+y = np.array([2, 5, 10, 17, 26, 37])
+
+model = PolynomialRegression(degree=2)
+model.fit(X, y)
+
+predictions = model.predict(X)
+
+print("Coefficients:", model.coefficients)
+print("Predictions:", predictions)
+print("R² Score:", model.score(X, y))
+```
+
+### Output
+
+```text
+Coefficients:
+[1. 0. 1.]
+
+Predictions:
+[ 2.  5. 10. 17. 26. 37.]
+
+R² Score:
+1.0
+```
+
+The learned equation is:
+
+\[
+y = 1 + x^2
+\]
+
+### Gradient Descent Implementation
+
+```python
+import numpy as np
+
+
+class PolynomialRegressionGD:
+    def __init__(self, degree=2, learning_rate=0.001, epochs=5000):
+        self.degree = degree
+        self.learning_rate = learning_rate
+        self.epochs = epochs
+        self.weights = None
+
+    def _poly_features(self, X):
+        X = np.array(X).reshape(-1, 1)
+
+        features = np.ones((len(X), 1))
+
+        for d in range(1, self.degree + 1):
+            features = np.hstack((features, X ** d))
+
+        return features
+
+    def fit(self, X, y):
+        X_poly = self._poly_features(X)
+
+        samples, features = X_poly.shape
+
+        self.weights = np.zeros(features)
+
+        for _ in range(self.epochs):
+            predictions = X_poly @ self.weights
+
+            error = predictions - y
+
+            gradient = (1 / samples) * (X_poly.T @ error)
+
+            self.weights -= self.learning_rate * gradient
+
+    def predict(self, X):
+        X_poly = self._poly_features(X)
+        return X_poly @ self.weights
+```
+
+### Scikit-Learn Implementation
+
+```python
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.linear_model import LinearRegression
+from sklearn.pipeline import Pipeline
+import numpy as np
+
+X = np.array([1, 2, 3, 4, 5, 6]).reshape(-1, 1)
+y = np.array([2, 5, 10, 17, 26, 37])
+
+model = Pipeline([
+    ("poly", PolynomialFeatures(degree=2)),
+    ("linear", LinearRegression())
+])
+
+model.fit(X, y)
+
+predictions = model.predict(X)
+
+print(predictions)
+```
+
+### Time Complexity
+
+| Operation | Complexity |
+|------------|------------|
+| Feature Generation | O(n × d) |
+| Normal Equation Training | O(d³) |
+| Prediction | O(n × d) |
+| Gradient Descent Training | O(epoch × n × d) |
+
+Where:
+
+- `n` = Number of samples
+- `d` = Polynomial degree
+
+### Advantages
+
+- Captures non-linear relationships
+- Easy to implement and interpret
+- Works well when the relationship is curved
+- Compatible with standard linear regression solvers
+
+### Limitations
+
+- Can overfit for high polynomial degrees
+- Sensitive to outliers
+- Computational cost increases with degree
+- Poor extrapolation outside training range
+
+### When to Use Polynomial Regression
+
+✅ Non-linear relationships
+
+✅ Growth curves
+
+✅ Demand forecasting
+
+✅ Financial trend analysis
+
+✅ Scientific modeling
+
+✅ Sales and revenue forecasting
+
+✅ Engineering and physical system modeling
+
+### Best Practices
+
+1. Start with degree 2 or 3.
+2. Use cross-validation to select the optimal degree.
+3. Scale features before training.
+4. Monitor overfitting using validation data.
+5. Consider Ridge or Lasso regularization for higher-degree models.
+
+### Conclusion
+
+Polynomial Regression extends Linear Regression by introducing polynomial features, allowing it to model curved and non-linear relationships. It is widely used in forecasting, scientific analysis, financial modeling, and engineering applications where simple linear relationships are insufficient.
+
 ---
 
 ## 3. Ridge Regression
