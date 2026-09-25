@@ -433,20 +433,8 @@ Lasso Regression extends Linear Regression by adding L1 regularization. Its key 
 
 # 5. Elastic Net Regression
 
-Combination of Ridge and Lasso.
-
-### Cost Function
-
-J = RSS + λ₁Σ|β| + λ₂Σβ²
-
-Advantages:
-- Feature selection
-- Better generalization
-
-
-## Elastic Net Regression
-
 Elastic Net Regression combines the strengths of both **Ridge Regression (L2 Regularization)** and **Lasso Regression (L1 Regularization)**. It is particularly useful when dealing with datasets that contain many correlated features.
+
 
 ### Cost Function
 
@@ -481,6 +469,11 @@ The objective is to minimize:
 1. Prediction Error (RSS)
 2. L1 Penalty (Feature Selection)
 3. L2 Penalty (Coefficient Shrinkage)
+
+Advantages:
+- Feature selection
+- Better generalization
+
 
 ### Why Use Elastic Net?
 
