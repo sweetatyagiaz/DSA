@@ -961,7 +961,7 @@ Income       0.33
 Experience   0.25
 ```
 
-## Linear Regression vs Decision Tree Regression
+### Linear Regression vs Decision Tree Regression
 
 | Feature | Linear Regression | Decision Tree |
 |----------|------------------|--------------|
@@ -972,7 +972,7 @@ Experience   0.25
 | Handles Outliers | Poor | Better |
 | Captures Complex Patterns | ❌ | ✅ |
 
-## Advantages
+### Advantages
 
 - Handles non-linear relationships
 - Easy to understand and visualize
@@ -980,14 +980,14 @@ Experience   0.25
 - Works with numerical and categorical data
 - Captures interactions automatically
 
-## Limitations
+### Limitations
 
 - Prone to overfitting
 - Sensitive to small data changes
 - Can create complex trees
 - Lower generalization than ensemble methods
 
-## Applications
+### Applications
 
 - House Price Prediction
 - Stock Market Analysis
@@ -998,7 +998,7 @@ Experience   0.25
 - Energy Consumption Prediction
 - Healthcare Analytics
 
-## Best Practices
+### Best Practices
 
 1. Limit tree depth to avoid overfitting.
 2. Use cross-validation for model selection.
@@ -1006,7 +1006,7 @@ Experience   0.25
 4. Compare performance with Random Forest and Gradient Boosting.
 5. Monitor training vs validation performance.
 
-## Conclusion
+### Conclusion
 
 Decision Tree Regression is a powerful non-linear machine learning algorithm that recursively partitions data to make predictions. It is easy to interpret, requires minimal preprocessing, and can capture complex relationships between variables. However, because individual trees are prone to overfitting, they are often used as the foundation for more advanced ensemble methods such as Random Forest and Gradient Boosting.
 
