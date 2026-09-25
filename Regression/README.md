@@ -618,9 +618,8 @@ The objective is:
 2. Minimize Prediction Error
 3. Control Model Complexity
 
---------------------------------------------------
 
-## Why Use SVR?
+### Why Use SVR?
 
 - Handles non-linear relationships
 - Works well on small and medium datasets
