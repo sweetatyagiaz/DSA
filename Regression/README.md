@@ -490,7 +490,6 @@ The objective is to minimize:
 | 0.75 | Mostly Lasso |
 | 1.0 | Pure Lasso Regression |
 
---------------------------------------------------
 
 ## Linear vs Ridge vs Lasso vs Elastic Net
 
@@ -503,7 +502,6 @@ The objective is to minimize:
 | Sparse Model | ❌ | ❌ | ✅ | ✅ |
 | Overfitting Control | ❌ | ✅ | ✅ | ✅ |
 
---------------------------------------------------
 
 ## Hyperparameter Tuning
 
