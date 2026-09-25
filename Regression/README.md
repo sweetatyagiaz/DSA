@@ -1557,7 +1557,6 @@ Measures average absolute error.
 
 Lower is better.
 
----
 
 ## 2. Mean Squared Error (MSE)
 
@@ -1567,7 +1566,6 @@ Penalizes large errors.
 
 Lower is better.
 
----
 
 ## 3. Root Mean Squared Error (RMSE)
 
@@ -1577,7 +1575,6 @@ Most commonly used metric.
 
 Lower is better.
 
----
 
 ## 4. R² Score
 
