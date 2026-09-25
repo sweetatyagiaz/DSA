@@ -525,8 +525,6 @@ grid.fit(X, y)
 print(grid.best_params_)
 ```
 
---------------------------------------------------
-
 ## Advantages
 
 - Combines strengths of Ridge and Lasso
@@ -535,16 +533,12 @@ print(grid.best_params_)
 - Reduces overfitting
 - Suitable for high-dimensional datasets
 
---------------------------------------------------
-
 ## Limitations
 
 - Requires tuning two hyperparameters
 - More computationally expensive
 - Interpretation is slightly more complex
 - Requires feature scaling
-
---------------------------------------------------
 
 ## Applications
 
@@ -557,8 +551,6 @@ print(grid.best_params_)
 - Risk Assessment
 - High-Dimensional Machine Learning Problems
 
---------------------------------------------------
-
 ## Best Practices
 
 1. Standardize features before training.
@@ -567,7 +559,6 @@ print(grid.best_params_)
 4. Monitor validation metrics to avoid underfitting.
 5. Use Elastic Net when many features are correlated.
 
---------------------------------------------------
 
 ## Conclusion
 
@@ -575,7 +566,7 @@ Elastic Net Regression combines the feature selection capability of Lasso Regres
 
 ---
 
-## 6. Support Vector Regression (SVR)
+# 6. Support Vector Regression (SVR)
 
 Uses Support Vector Machine concepts for regression.
 
