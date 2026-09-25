@@ -809,6 +809,333 @@ Advantages:
 - Easy interpretation
 - Handles non-linear data
 
+
+## Decision Tree Regression
+
+Decision Tree Regression is a non-linear supervised learning algorithm that predicts continuous values by recursively splitting the dataset into smaller subsets based on feature values. The model creates a tree-like structure where each internal node represents a decision rule and each leaf node contains the predicted value.
+
+Unlike Linear Regression, Decision Tree Regression can capture complex non-linear relationships without requiring feature transformations.
+
+### How Decision Trees Work
+
+1. Start with the entire dataset.
+2. Find the best feature and split point.
+3. Divide the data into child nodes.
+4. Repeat recursively for each child node.
+5. Stop when a stopping criterion is met.
+6. Use the average target value in a leaf node as the prediction.
+
+--------------------------------------------------
+
+### Splitting Criterion
+
+Decision Tree Regression commonly uses **Mean Squared Error (MSE)** to determine the best split.
+
+```text
+MSE = (1 / n) × Σ(yi - ȳ)²
+```
+
+Where:
+
+| Symbol | Description |
+|---------|------------|
+| yi | Actual Value |
+| ȳ | Mean Value of Node |
+| n | Number of Samples |
+
+The algorithm selects the split that minimizes the overall MSE.
+
+--------------------------------------------------
+
+## Why Use Decision Tree Regression?
+
+- Captures non-linear relationships
+- No feature scaling required
+- Easy to interpret
+- Handles numerical and categorical data
+- Works well with complex datasets
+
+--------------------------------------------------
+
+## Decision Tree Regression Using Scikit-Learn
+
+```python
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import (
+    mean_squared_error,
+    r2_score
+)
+import pandas as pd
+
+# Load Dataset
+data = pd.read_csv("data.csv")
+
+X = data.drop("target", axis=1)
+y = data["target"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    random_state=42
+)
+
+model = DecisionTreeRegressor(
+    max_depth=5,
+    random_state=42
+)
+
+model.fit(X_train, y_train)
+
+predictions = model.predict(X_test)
+
+print(
+    "RMSE:",
+    mean_squared_error(
+        y_test,
+        predictions,
+        squared=False
+    )
+)
+
+print(
+    "R² Score:",
+    r2_score(
+        y_test,
+        predictions
+    )
+)
+```
+
+--------------------------------------------------
+
+## Example with Sample Data
+
+```python
+import numpy as np
+from sklearn.tree import DecisionTreeRegressor
+
+X = np.array([
+    [1],
+    [2],
+    [3],
+    [4],
+    [5],
+    [6]
+])
+
+y = np.array([
+    2,
+    5,
+    10,
+    17,
+    26,
+    37
+])
+
+model = DecisionTreeRegressor(
+    max_depth=3,
+    random_state=42
+)
+
+model.fit(X, y)
+
+predictions = model.predict(X)
+
+print(predictions)
+```
+
+--------------------------------------------------
+
+## Visualizing the Tree
+
+```python
+from sklearn.tree import (
+    plot_tree
+)
+import matplotlib.pyplot as plt
+
+plt.figure(
+    figsize=(12, 8)
+)
+
+plot_tree(
+    model,
+    filled=True,
+    rounded=True
+)
+
+plt.show()
+```
+
+--------------------------------------------------
+
+## Important Hyperparameters
+
+### max_depth
+
+Maximum depth of the tree.
+
+```python
+DecisionTreeRegressor(
+    max_depth=5
+)
+```
+
+| Value | Effect |
+|---------|---------|
+| Small | Underfitting |
+| Large | Overfitting |
+
+--------------------------------------------------
+
+### min_samples_split
+
+Minimum samples required to split a node.
+
+```python
+DecisionTreeRegressor(
+    min_samples_split=10
+)
+```
+
+--------------------------------------------------
+
+### min_samples_leaf
+
+Minimum samples required in a leaf node.
+
+```python
+DecisionTreeRegressor(
+    min_samples_leaf=5
+)
+```
+
+--------------------------------------------------
+
+### max_features
+
+Number of features considered for splitting.
+
+```python
+DecisionTreeRegressor(
+    max_features="sqrt"
+)
+```
+
+--------------------------------------------------
+
+## Hyperparameter Tuning
+
+```python
+from sklearn.model_selection import GridSearchCV
+from sklearn.tree import DecisionTreeRegressor
+
+params = {
+    "max_depth": [3, 5, 10, 15],
+    "min_samples_split": [2, 5, 10],
+    "min_samples_leaf": [1, 2, 5]
+}
+
+grid = GridSearchCV(
+    DecisionTreeRegressor(),
+    params,
+    cv=5
+)
+
+grid.fit(X, y)
+
+print(grid.best_params_)
+```
+
+--------------------------------------------------
+
+## Feature Importance
+
+Decision Trees can estimate feature importance.
+
+```python
+for feature, importance in zip(
+    X.columns,
+    model.feature_importances_
+):
+    print(
+        feature,
+        importance
+    )
+```
+
+Example Output:
+
+```text
+Age          0.42
+Income       0.33
+Experience   0.25
+```
+
+--------------------------------------------------
+
+## Linear Regression vs Decision Tree Regression
+
+| Feature | Linear Regression | Decision Tree |
+|----------|------------------|--------------|
+| Linear Data | ✅ | ✅ |
+| Non-Linear Data | ❌ | ✅ |
+| Feature Scaling Required | ❌ | ❌ |
+| Interpretability | High | High |
+| Handles Outliers | Poor | Better |
+| Captures Complex Patterns | ❌ | ✅ |
+
+--------------------------------------------------
+
+## Advantages
+
+- Handles non-linear relationships
+- Easy to understand and visualize
+- No feature scaling required
+- Works with numerical and categorical data
+- Captures interactions automatically
+
+--------------------------------------------------
+
+## Limitations
+
+- Prone to overfitting
+- Sensitive to small data changes
+- Can create complex trees
+- Lower generalization than ensemble methods
+
+--------------------------------------------------
+
+## Applications
+
+- House Price Prediction
+- Stock Market Analysis
+- Demand Forecasting
+- Customer Lifetime Value Prediction
+- Sales Forecasting
+- Risk Assessment
+- Energy Consumption Prediction
+- Healthcare Analytics
+
+--------------------------------------------------
+
+## Best Practices
+
+1. Limit tree depth to avoid overfitting.
+2. Use cross-validation for model selection.
+3. Tune max_depth and min_samples_leaf.
+4. Compare performance with Random Forest and Gradient Boosting.
+5. Monitor training vs validation performance.
+
+--------------------------------------------------
+
+## Conclusion
+
+Decision Tree Regression is a powerful non-linear machine learning algorithm that recursively partitions data to make predictions. It is easy to interpret, requires minimal preprocessing, and can capture complex relationships between variables. However, because individual trees are prone to overfitting, they are often used as the foundation for more advanced ensemble methods such as Random Forest and Gradient Boosting.
+
+
 ---
 
 ## 8. Random Forest Regression
