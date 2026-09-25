@@ -1249,21 +1249,7 @@ Random Forest Regression is an ensemble machine learning algorithm that combines
 
 ---
 
-## 9. Gradient Boosting Regression
-
-Builds trees sequentially to reduce errors.
-
-Popular implementations:
-- XGBoost
-- LightGBM
-- CatBoost
-
-Advantages:
-- Excellent performance
-- Handles complex relationships
-
-
-## Gradient Boosting Regression
+# 9. Gradient Boosting Regression
 
 Gradient Boosting Regression is an ensemble machine learning algorithm that builds a sequence of Decision Trees, where each new tree attempts to correct the errors made by the previous trees.
 
@@ -1275,9 +1261,12 @@ It is one of the most powerful predictive modeling techniques and forms the foun
 - LightGBM
 - CatBoost
 
---------------------------------------------------
+Advantages:
+- Excellent performance
+- Handles complex relationships
 
-### How Gradient Boosting Works
+
+## How Gradient Boosting Works
 
 1. Train the first Decision Tree.
 2. Calculate prediction errors (residuals).
@@ -1305,9 +1294,8 @@ Final Prediction
 
 Each new tree focuses on correcting mistakes made by earlier trees.
 
---------------------------------------------------
 
-### Prediction Formula
+## Prediction Formula
 
 For M trees:
 
