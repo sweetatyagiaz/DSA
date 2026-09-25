@@ -576,7 +576,7 @@ Advantages:
 - Works well on non-linear data
 - Robust to outliers
 
-### Cost Function
+## Cost Function
 
 #### Linear Regression
 
