@@ -133,7 +133,7 @@ Polynomial Regression extends Linear Regression by introducing polynomial featur
 
 ## 3. Ridge Regression
 
-Adds L2 Regularization to prevent overfitting.
+Ridge Regression is a regularized version of Linear Regression that adds an **L2 penalty** term to the cost function. This penalty discourages large coefficient values, helping to reduce overfitting and improve model generalization.
 
 ### Cost Function
 
@@ -144,29 +144,47 @@ Advantages:
 - Handles multicollinearity
 
 
-## Ridge Regression
-
-Ridge Regression is a regularized version of Linear Regression that adds an **L2 penalty** term to the cost function. This penalty discourages large coefficient values, helping to reduce overfitting and improve model generalization.
-
 ### Mathematical Formula
 
-Linear Regression minimizes:
+### Cost Function
 
-\[
-RSS = \sum_{i=1}^{n}(y_i - \hat{y}_i)^2
-\]
+#### Linear Regression
 
-Ridge Regression adds an L2 penalty:
+Linear Regression minimizes the **Residual Sum of Squares (RSS)**:
 
-\[
-Cost = RSS + \lambda \sum_{j=1}^{p} \beta_j^2
-\]
+```text
+RSS = Σ(yi - ŷi)²
+```
 
 Where:
 
-- \(RSS\) = Residual Sum of Squares
-- \(\lambda\) = Regularization parameter
-- \(\beta_j\) = Model coefficients
+- `yi` = Actual value
+- `ŷi` = Predicted value
+- `n` = Number of observations
+
+#### Ridge Regression
+
+Ridge Regression adds an **L2 Regularization** penalty to the Linear Regression cost function:
+
+```text
+Cost = RSS + λ × Σ(βj²)
+```
+
+Where:
+
+| Symbol | Description |
+|---------|------------|
+| RSS | Residual Sum of Squares |
+| λ | Regularization Parameter |
+| βj | Coefficient of Feature j |
+| p | Total Number of Features |
+
+The objective is to minimize both:
+
+1. Prediction Error (RSS)
+2. Magnitude of Coefficients (L2 Penalty)
+
+As the value of **λ (Lambda)** increases, the coefficients shrink toward zero, helping to reduce overfitting and improve model generalization.
 
 ### Effect of λ (Lambda)
 
