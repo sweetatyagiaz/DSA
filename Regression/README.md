@@ -1393,32 +1393,6 @@ GradientBoostingRegressor(
 Values less than 1.0 introduce randomness and can improve generalization.
 
 
-## Hyperparameter Tuning
-
-```python
-from sklearn.model_selection import GridSearchCV
-from sklearn.ensemble import GradientBoostingRegressor
-
-params = {
-    "n_estimators": [100, 200, 300],
-    "learning_rate": [0.01, 0.05, 0.1],
-    "max_depth": [3, 5, 7],
-    "subsample": [0.8, 1.0]
-}
-
-grid = GridSearchCV(
-    GradientBoostingRegressor(),
-    params,
-    cv=5
-)
-
-grid.fit(X, y)
-
-print(grid.best_params_)
-```
-
---------------------------------------------------
-
 ## Random Forest vs Gradient Boosting
 
 | Feature | Random Forest | Gradient Boosting |
@@ -1430,7 +1404,6 @@ print(grid.best_params_)
 | Hyperparameter Sensitivity | Low | High |
 | Bias Reduction | Moderate | Excellent |
 
---------------------------------------------------
 
 ## Popular Gradient Boosting Variants
 
