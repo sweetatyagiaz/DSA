@@ -1262,6 +1262,434 @@ Advantages:
 - Excellent performance
 - Handles complex relationships
 
+
+## Gradient Boosting Regression
+
+Gradient Boosting Regression is an ensemble machine learning algorithm that builds a sequence of Decision Trees, where each new tree attempts to correct the errors made by the previous trees.
+
+Unlike Random Forest, which builds trees independently and averages their predictions, Gradient Boosting builds trees sequentially and combines them to minimize the overall prediction error.
+
+It is one of the most powerful predictive modeling techniques and forms the foundation of popular algorithms such as:
+
+- XGBoost
+- LightGBM
+- CatBoost
+
+--------------------------------------------------
+
+### How Gradient Boosting Works
+
+1. Train the first Decision Tree.
+2. Calculate prediction errors (residuals).
+3. Train a new tree on the residuals.
+4. Add the new tree's predictions to the previous model.
+5. Repeat until the desired number of trees is reached.
+
+```text
+Actual Value
+      ↓
+Tree 1
+      ↓
+Residual Error
+      ↓
+Tree 2
+      ↓
+Residual Error
+      ↓
+Tree 3
+      ↓
+...
+      ↓
+Final Prediction
+```
+
+Each new tree focuses on correcting mistakes made by earlier trees.
+
+--------------------------------------------------
+
+### Prediction Formula
+
+For M trees:
+
+```text
+Prediction = Tree1 + LearningRate × Tree2
+           + LearningRate × Tree3
+           + ...
+           + LearningRate × TreeM
+```
+
+or
+
+```text
+ŷ = Σ(η × Treei)
+```
+
+Where:
+
+| Symbol | Description |
+|---------|------------|
+| ŷ | Final Prediction |
+| η | Learning Rate |
+| Treei | Prediction from Tree i |
+| M | Number of Trees |
+
+--------------------------------------------------
+
+### Why Use Gradient Boosting?
+
+- High predictive accuracy
+- Handles non-linear relationships
+- Captures complex feature interactions
+- Reduces bias and variance
+- Works well on structured/tabular data
+- State-of-the-art performance on many datasets
+
+--------------------------------------------------
+
+## Gradient Boosting Regression Using Scikit-Learn
+
+```python
+from sklearn.ensemble import GradientBoostingRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import (
+    mean_squared_error,
+    r2_score
+)
+import pandas as pd
+
+# Load Dataset
+data = pd.read_csv("data.csv")
+
+X = data.drop("target", axis=1)
+y = data["target"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    random_state=42
+)
+
+model = GradientBoostingRegressor(
+    n_estimators=100,
+    learning_rate=0.1,
+    max_depth=3,
+    random_state=42
+)
+
+model.fit(X_train, y_train)
+
+predictions = model.predict(X_test)
+
+print(
+    "RMSE:",
+    mean_squared_error(
+        y_test,
+        predictions,
+        squared=False
+    )
+)
+
+print(
+    "R² Score:",
+    r2_score(
+        y_test,
+        predictions
+    )
+)
+```
+
+--------------------------------------------------
+
+## Example with Sample Data
+
+```python
+import numpy as np
+from sklearn.ensemble import GradientBoostingRegressor
+
+X = np.array([
+    [1],
+    [2],
+    [3],
+    [4],
+    [5],
+    [6]
+])
+
+y = np.array([
+    2,
+    5,
+    10,
+    17,
+    26,
+    37
+])
+
+model = GradientBoostingRegressor(
+    n_estimators=100,
+    learning_rate=0.1,
+    random_state=42
+)
+
+model.fit(X, y)
+
+predictions = model.predict(X)
+
+print(predictions)
+```
+
+--------------------------------------------------
+
+## Feature Importance
+
+Gradient Boosting can estimate feature importance.
+
+```python
+for feature, importance in zip(
+    X.columns,
+    model.feature_importances_
+):
+    print(
+        feature,
+        importance
+    )
+```
+
+Example Output:
+
+```text
+Income        0.41
+Experience    0.35
+Age           0.24
+```
+
+--------------------------------------------------
+
+## Important Hyperparameters
+
+### n_estimators
+
+Number of boosting stages.
+
+```python
+GradientBoostingRegressor(
+    n_estimators=100
+)
+```
+
+| Value | Effect |
+|---------|---------|
+| Small | Faster Training |
+| Large | Better Learning |
+| Too Large | Overfitting Risk |
+
+--------------------------------------------------
+
+### learning_rate
+
+Controls contribution of each tree.
+
+```python
+GradientBoostingRegressor(
+    learning_rate=0.1
+)
+```
+
+| Learning Rate | Effect |
+|---------------|---------|
+| High | Faster Learning |
+| Low | Better Generalization |
+| Very Low | Requires More Trees |
+
+--------------------------------------------------
+
+### max_depth
+
+Maximum depth of each tree.
+
+```python
+GradientBoostingRegressor(
+    max_depth=3
+)
+```
+
+| Depth | Effect |
+|--------|--------|
+| Small | Simpler Model |
+| Large | More Complex Model |
+
+--------------------------------------------------
+
+### subsample
+
+Fraction of training samples used per tree.
+
+```python
+GradientBoostingRegressor(
+    subsample=0.8
+)
+```
+
+Values less than 1.0 introduce randomness and can improve generalization.
+
+--------------------------------------------------
+
+## Hyperparameter Tuning
+
+```python
+from sklearn.model_selection import GridSearchCV
+from sklearn.ensemble import GradientBoostingRegressor
+
+params = {
+    "n_estimators": [100, 200, 300],
+    "learning_rate": [0.01, 0.05, 0.1],
+    "max_depth": [3, 5, 7],
+    "subsample": [0.8, 1.0]
+}
+
+grid = GridSearchCV(
+    GradientBoostingRegressor(),
+    params,
+    cv=5
+)
+
+grid.fit(X, y)
+
+print(grid.best_params_)
+```
+
+--------------------------------------------------
+
+## Random Forest vs Gradient Boosting
+
+| Feature | Random Forest | Gradient Boosting |
+|----------|--------------|------------------|
+| Training Style | Parallel | Sequential |
+| Overfitting Risk | Low | Medium |
+| Accuracy | High | Very High |
+| Training Speed | Faster | Slower |
+| Hyperparameter Sensitivity | Low | High |
+| Bias Reduction | Moderate | Excellent |
+
+--------------------------------------------------
+
+## Popular Gradient Boosting Variants
+
+### XGBoost
+
+Features:
+
+- Regularization
+- Parallel Processing
+- Missing Value Handling
+- High Performance
+
+```python
+from xgboost import XGBRegressor
+```
+
+--------------------------------------------------
+
+### LightGBM
+
+Features:
+
+- Faster Training
+- Lower Memory Usage
+- Efficient for Large Datasets
+
+```python
+from lightgbm import LGBMRegressor
+```
+
+--------------------------------------------------
+
+### CatBoost
+
+Features:
+
+- Native Categorical Feature Support
+- Minimal Preprocessing
+- Strong Default Performance
+
+```python
+from catboost import CatBoostRegressor
+```
+
+--------------------------------------------------
+
+## Advantages
+
+- Excellent prediction accuracy
+- Captures complex patterns
+- Handles non-linear relationships
+- Supports feature importance analysis
+- Strong performance on structured data
+
+--------------------------------------------------
+
+## Limitations
+
+- Slower training
+- More sensitive to hyperparameters
+- Can overfit if not tuned properly
+- Harder to interpret than a single tree
+
+--------------------------------------------------
+
+## Applications
+
+- Stock Price Prediction
+- Financial Forecasting
+- Demand Forecasting
+- House Price Prediction
+- Customer Lifetime Value Prediction
+- Fraud Detection
+- Risk Assessment
+- Healthcare Analytics
+
+--------------------------------------------------
+
+## Best Practices
+
+1. Start with learning_rate = 0.1.
+2. Use 100–500 trees initially.
+3. Tune max_depth carefully.
+4. Apply cross-validation.
+5. Monitor training and validation scores.
+6. Compare against XGBoost, LightGBM, and CatBoost.
+
+--------------------------------------------------
+
+## Time Complexity
+
+Let:
+
+```text
+N = Number of Samples
+M = Number of Features
+T = Number of Trees
+```
+
+Training Complexity:
+
+```text
+O(T × N × M × log(N))
+```
+
+Prediction Complexity:
+
+```text
+O(T × log(N))
+```
+
+--------------------------------------------------
+
+## Conclusion
+
+Gradient Boosting Regression is a powerful ensemble learning algorithm that builds trees sequentially to correct previous prediction errors. By combining many weak learners into a strong predictive model, it achieves exceptional accuracy and is widely used in finance, forecasting, healthcare, and machine learning competitions. Modern implementations such as XGBoost, LightGBM, and CatBoost have made Gradient Boosting one of the most important algorithms in practical machine learning.
+
+
 ---
 
 # Linear Regression Visualization
