@@ -203,8 +203,6 @@ As the value of **λ (Lambda)** increases, the coefficients shrink toward zero, 
 - Improves generalization
 - Works well with many correlated features
 
-----
-
 ## Linear Regression vs Ridge Regression
 
 | Feature | Linear Regression | Ridge Regression |
@@ -214,8 +212,6 @@ As the value of **λ (Lambda)** increases, the coefficients shrink toward zero, 
 | Overfitting Control | ❌ | ✅ |
 | Feature Selection | ❌ | ❌ |
 | Coefficients Shrinkage | ❌ | ✅ |
-
----
 
 ## Choosing the Alpha Parameter
 
@@ -253,8 +249,6 @@ grid.fit(X, y)
 print(grid.best_params_)
 ```
 
----
-
 ## Advantages
 
 - Prevents overfitting
@@ -263,16 +257,12 @@ print(grid.best_params_)
 - Reduces coefficient variance
 - Works well with high-dimensional data
 
----
-
 ## Limitations
 
 - Does not perform feature selection
 - All features remain in the model
 - Requires tuning of alpha
 - Less interpretable than sparse models
-
----
 
 ## Applications
 
@@ -284,8 +274,6 @@ print(grid.best_params_)
 - Risk assessment
 - Economic modeling
 
----
-
 ## Best Practices
 
 1. Standardize features before training.
@@ -293,8 +281,6 @@ print(grid.best_params_)
 3. Compare against Linear Regression baseline.
 4. Use Ridge when multicollinearity exists.
 5. Monitor validation performance to avoid underfitting.
-
----
 
 ## Conclusion
 
