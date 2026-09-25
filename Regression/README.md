@@ -195,7 +195,7 @@ As the value of **λ (Lambda)** increases, the coefficients shrink toward zero, 
 | Large λ | Strong regularization |
 | Very Large λ | Underfitting |
 
-### Why Use Ridge Regression?
+## Why Use Ridge Regression?
 
 - Reduces overfitting
 - Handles multicollinearity
@@ -299,6 +299,283 @@ J = RSS + λΣ|β|
 Advantages:
 - Feature selection
 - Removes less important features
+
+## Lasso Regression
+
+Lasso (Least Absolute Shrinkage and Selection Operator) Regression is a regularized version of Linear Regression that adds an **L1 penalty** to the cost function. Unlike Ridge Regression, Lasso can shrink some coefficients exactly to zero, effectively performing **feature selection**.
+
+### Cost Function
+
+#### Linear Regression
+
+Linear Regression minimizes the **Residual Sum of Squares (RSS)**:
+
+```text
+RSS = Σ(yi - ŷi)²
+```
+
+#### Lasso Regression
+
+Lasso Regression adds an **L1 Regularization** penalty to the Linear Regression cost function:
+
+```text
+Cost = RSS + λ × Σ|βj|
+```
+
+Where:
+
+| Symbol | Description |
+|---------|------------|
+| RSS | Residual Sum of Squares |
+| λ | Regularization Parameter |
+| βj | Coefficient of Feature j |
+| p | Total Number of Features |
+
+The objective is to minimize both:
+
+1. Prediction Error (RSS)
+2. Sum of Absolute Coefficient Values (L1 Penalty)
+
+As the value of **λ (Lambda)** increases, more coefficients are pushed toward zero. Some coefficients may become exactly zero, automatically removing unimportant features.
+
+### Why Use Lasso Regression?
+
+- Reduces overfitting
+- Performs automatic feature selection
+- Handles high-dimensional datasets
+- Produces simpler and more interpretable models
+- Removes irrelevant features
+
+---
+
+## Lasso Regression from Scratch (Gradient Descent)
+
+```python
+import numpy as np
+
+
+class LassoRegression:
+    def __init__(
+        self,
+        alpha=1.0,
+        learning_rate=0.01,
+        epochs=1000
+    ):
+        self.alpha = alpha
+        self.learning_rate = learning_rate
+        self.epochs = epochs
+
+        self.weights = None
+        self.bias = 0
+
+    def fit(self, X, y):
+
+        samples, features = X.shape
+
+        self.weights = np.zeros(features)
+
+        for _ in range(self.epochs):
+
+            predictions = (
+                np.dot(X, self.weights)
+                + self.bias
+            )
+
+            error = predictions - y
+
+            dw = (
+                (1 / samples)
+                * np.dot(X.T, error)
+            )
+
+            l1_penalty = (
+                self.alpha
+                * np.sign(self.weights)
+                / samples
+            )
+
+            dw += l1_penalty
+
+            db = (1 / samples) * np.sum(error)
+
+            self.weights -= (
+                self.learning_rate * dw
+            )
+
+            self.bias -= (
+                self.learning_rate * db
+            )
+
+    def predict(self, X):
+        return (
+            np.dot(X, self.weights)
+            + self.bias
+        )
+```
+
+---
+
+## Example Usage
+
+```python
+import numpy as np
+
+X = np.array([
+    [1, 2],
+    [2, 4],
+    [3, 6],
+    [4, 8],
+    [5, 10]
+])
+
+y = np.array([2, 4, 6, 8, 10])
+
+model = LassoRegression(
+    alpha=0.1,
+    learning_rate=0.01,
+    epochs=5000
+)
+
+model.fit(X, y)
+
+predictions = model.predict(X)
+
+print("Weights:")
+print(model.weights)
+
+print("Bias:")
+print(model.bias)
+```
+
+---
+
+## Scikit-Learn Implementation
+
+```python
+from sklearn.linear_model import Lasso
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score
+import pandas as pd
+
+data = pd.read_csv("data.csv")
+
+X = data.drop("target", axis=1)
+y = data["target"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    random_state=42
+)
+
+model = Lasso(alpha=0.1)
+
+model.fit(X_train, y_train)
+
+predictions = model.predict(X_test)
+
+print("R² Score:", r2_score(y_test, predictions))
+print("Coefficients:", model.coef_)
+```
+
+---
+
+## Linear vs Ridge vs Lasso
+
+| Feature | Linear | Ridge | Lasso |
+|----------|---------|--------|--------|
+| Regularization | ❌ | L2 | L1 |
+| Feature Selection | ❌ | ❌ | ✅ |
+| Handles Multicollinearity | ❌ | ✅ | ✅ |
+| Coefficient Shrinkage | ❌ | ✅ | ✅ |
+| Coefficients Become Zero | ❌ | ❌ | ✅ |
+| Interpretability | Medium | Medium | High |
+
+---
+
+## Choosing Alpha (λ)
+
+Common values:
+
+```python
+alphas = [
+    0.001,
+    0.01,
+    0.1,
+    1,
+    10,
+    100
+]
+```
+
+Grid Search:
+
+```python
+from sklearn.linear_model import Lasso
+from sklearn.model_selection import GridSearchCV
+
+params = {
+    "alpha": [0.001, 0.01, 0.1, 1, 10, 100]
+}
+
+grid = GridSearchCV(
+    Lasso(),
+    params,
+    cv=5
+)
+
+grid.fit(X, y)
+
+print(grid.best_params_)
+```
+
+---
+
+## Advantages
+
+- Automatic feature selection
+- Reduces overfitting
+- Produces sparse models
+- Improves interpretability
+- Works well with high-dimensional data
+
+---
+
+## Limitations
+
+- Can remove useful correlated features
+- Requires feature scaling
+- Sensitive to the alpha parameter
+- Optimization is more complex than Linear Regression
+
+---
+
+## Applications
+
+- Financial forecasting
+- Stock market prediction
+- Healthcare analytics
+- Customer churn prediction
+- Marketing analytics
+- Risk modeling
+- Feature selection in large datasets
+
+---
+
+## Best Practices
+
+1. Standardize features before training.
+2. Tune alpha using cross-validation.
+3. Compare results with Ridge Regression.
+4. Use when feature selection is important.
+5. Monitor validation performance to avoid underfitting.
+
+---
+
+## Conclusion
+
+Lasso Regression extends Linear Regression by adding L1 regularization. Its key advantage is automatic feature selection, making it especially useful for high-dimensional datasets where many features may be irrelevant. By shrinking some coefficients exactly to zero, Lasso produces simpler, more interpretable, and often more robust models.
 
 ---
 
