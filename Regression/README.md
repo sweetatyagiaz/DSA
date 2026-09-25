@@ -1261,10 +1261,6 @@ It is one of the most powerful predictive modeling techniques and forms the foun
 - LightGBM
 - CatBoost
 
-Advantages:
-- Excellent performance
-- Handles complex relationships
-
 
 ## How Gradient Boosting Works
 
@@ -1321,9 +1317,8 @@ Where:
 | Treei | Prediction from Tree i |
 | M | Number of Trees |
 
---------------------------------------------------
 
-### Why Use Gradient Boosting?
+## Why Use Gradient Boosting?
 
 - High predictive accuracy
 - Handles non-linear relationships
@@ -1332,7 +1327,6 @@ Where:
 - Works well on structured/tabular data
 - State-of-the-art performance on many datasets
 
---------------------------------------------------
 
 ## Gradient Boosting Regression Using Scikit-Learn
 
