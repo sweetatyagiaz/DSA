@@ -203,9 +203,7 @@ As the value of **λ (Lambda)** increases, the coefficients shrink toward zero, 
 - Improves generalization
 - Works well with many correlated features
 
----
-
----
+----
 
 ## Linear Regression vs Ridge Regression
 
