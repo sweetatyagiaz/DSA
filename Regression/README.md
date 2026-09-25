@@ -443,6 +443,301 @@ Advantages:
 - Feature selection
 - Better generalization
 
+
+## Elastic Net Regression
+
+Elastic Net Regression combines the strengths of both **Ridge Regression (L2 Regularization)** and **Lasso Regression (L1 Regularization)**. It is particularly useful when dealing with datasets that contain many correlated features.
+
+### Cost Function
+
+#### Linear Regression
+
+Linear Regression minimizes the **Residual Sum of Squares (RSS)**:
+
+```text
+RSS = Σ(yi - ŷi)²
+```
+
+#### Elastic Net Regression
+
+Elastic Net adds both **L1** and **L2** penalties to the cost function:
+
+```text
+Cost = RSS + λ1 × Σ|βj| + λ2 × Σ(βj²)
+```
+
+Where:
+
+| Symbol | Description |
+|---------|------------|
+| RSS | Residual Sum of Squares |
+| λ1 | L1 Regularization Parameter |
+| λ2 | L2 Regularization Parameter |
+| βj | Coefficient of Feature j |
+| p | Total Number of Features |
+
+The objective is to minimize:
+
+1. Prediction Error (RSS)
+2. L1 Penalty (Feature Selection)
+3. L2 Penalty (Coefficient Shrinkage)
+
+### Why Use Elastic Net?
+
+- Combines Ridge and Lasso advantages
+- Performs feature selection
+- Handles multicollinearity
+- Reduces overfitting
+- Works well with high-dimensional datasets
+
+--------------------------------------------------
+
+## Elastic Net Regression from Scratch
+
+```python
+import numpy as np
+
+
+class ElasticNetRegression:
+    def __init__(
+        self,
+        alpha=1.0,
+        l1_ratio=0.5,
+        learning_rate=0.01,
+        epochs=1000
+    ):
+        self.alpha = alpha
+        self.l1_ratio = l1_ratio
+        self.learning_rate = learning_rate
+        self.epochs = epochs
+
+        self.weights = None
+        self.bias = 0
+
+    def fit(self, X, y):
+
+        samples, features = X.shape
+
+        self.weights = np.zeros(features)
+
+        for _ in range(self.epochs):
+
+            predictions = (
+                np.dot(X, self.weights)
+                + self.bias
+            )
+
+            error = predictions - y
+
+            l1_penalty = (
+                self.alpha
+                * self.l1_ratio
+                * np.sign(self.weights)
+            )
+
+            l2_penalty = (
+                self.alpha
+                * (1 - self.l1_ratio)
+                * self.weights
+            )
+
+            dw = (
+                (1 / samples)
+                * np.dot(X.T, error)
+                + l1_penalty
+                + l2_penalty
+            )
+
+            db = (
+                (1 / samples)
+                * np.sum(error)
+            )
+
+            self.weights -= (
+                self.learning_rate * dw
+            )
+
+            self.bias -= (
+                self.learning_rate * db
+            )
+
+    def predict(self, X):
+        return (
+            np.dot(X, self.weights)
+            + self.bias
+        )
+```
+
+--------------------------------------------------
+
+## Example Usage
+
+```python
+import numpy as np
+
+X = np.array([
+    [1, 2],
+    [2, 3],
+    [3, 4],
+    [4, 5],
+    [5, 6]
+])
+
+y = np.array([3, 5, 7, 9, 11])
+
+model = ElasticNetRegression(
+    alpha=0.1,
+    l1_ratio=0.5,
+    learning_rate=0.01,
+    epochs=5000
+)
+
+model.fit(X, y)
+
+predictions = model.predict(X)
+
+print("Weights:")
+print(model.weights)
+
+print("Bias:")
+print(model.bias)
+
+print("Predictions:")
+print(predictions)
+```
+
+--------------------------------------------------
+
+## Scikit-Learn Implementation
+
+```python
+from sklearn.linear_model import ElasticNet
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score
+import pandas as pd
+
+data = pd.read_csv("data.csv")
+
+X = data.drop("target", axis=1)
+y = data["target"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    random_state=42
+)
+
+model = ElasticNet(
+    alpha=0.1,
+    l1_ratio=0.5
+)
+
+model.fit(X_train, y_train)
+
+predictions = model.predict(X_test)
+
+print("R² Score:", r2_score(y_test, predictions))
+print("Coefficients:", model.coef_)
+```
+
+--------------------------------------------------
+
+## Understanding l1_ratio
+
+| l1_ratio | Behavior |
+|-----------|----------|
+| 0.0 | Pure Ridge Regression |
+| 0.25 | Mostly Ridge |
+| 0.50 | Balanced Ridge + Lasso |
+| 0.75 | Mostly Lasso |
+| 1.0 | Pure Lasso Regression |
+
+--------------------------------------------------
+
+## Linear vs Ridge vs Lasso vs Elastic Net
+
+| Feature | Linear | Ridge | Lasso | Elastic Net |
+|----------|---------|--------|--------|-------------|
+| Regularization | ❌ | L2 | L1 | L1 + L2 |
+| Feature Selection | ❌ | ❌ | ✅ | ✅ |
+| Multicollinearity Handling | ❌ | ✅ | Partial | ✅ |
+| Coefficient Shrinkage | ❌ | ✅ | ✅ | ✅ |
+| Sparse Model | ❌ | ❌ | ✅ | ✅ |
+| Overfitting Control | ❌ | ✅ | ✅ | ✅ |
+
+--------------------------------------------------
+
+## Hyperparameter Tuning
+
+```python
+from sklearn.linear_model import ElasticNet
+from sklearn.model_selection import GridSearchCV
+
+params = {
+    "alpha": [0.001, 0.01, 0.1, 1, 10],
+    "l1_ratio": [0.1, 0.3, 0.5, 0.7, 0.9]
+}
+
+grid = GridSearchCV(
+    ElasticNet(),
+    params,
+    cv=5
+)
+
+grid.fit(X, y)
+
+print(grid.best_params_)
+```
+
+--------------------------------------------------
+
+## Advantages
+
+- Combines strengths of Ridge and Lasso
+- Performs automatic feature selection
+- Handles correlated features effectively
+- Reduces overfitting
+- Suitable for high-dimensional datasets
+
+--------------------------------------------------
+
+## Limitations
+
+- Requires tuning two hyperparameters
+- More computationally expensive
+- Interpretation is slightly more complex
+- Requires feature scaling
+
+--------------------------------------------------
+
+## Applications
+
+- Stock Market Prediction
+- Financial Forecasting
+- Healthcare Analytics
+- Marketing Analytics
+- Customer Churn Prediction
+- Demand Forecasting
+- Risk Assessment
+- High-Dimensional Machine Learning Problems
+
+--------------------------------------------------
+
+## Best Practices
+
+1. Standardize features before training.
+2. Use cross-validation for alpha and l1_ratio.
+3. Compare against Ridge and Lasso baselines.
+4. Monitor validation metrics to avoid underfitting.
+5. Use Elastic Net when many features are correlated.
+
+--------------------------------------------------
+
+## Conclusion
+
+Elastic Net Regression combines the feature selection capability of Lasso Regression with the coefficient stabilization of Ridge Regression. It is often the preferred choice for high-dimensional datasets containing correlated features, providing a balance between model simplicity, stability, and predictive performance.
+
 ---
 
 ## 6. Support Vector Regression (SVR)
