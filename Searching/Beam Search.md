@@ -266,4 +266,6 @@ Beam Search is a common decoding strategy in sequence-generation systems and lan
 
 ## Conclusion
 
-Beam Search is a heuristic search algorithm that balances search quality and computational efficiency by exploring only the most promising candidates at each level. It is widely used in machine translation, speech recognition, path planning, and modern LLM decoding because it provides better results than greedy search while remaining computationally tractable for large search spaces. :contentReference[oaicite:8]{index=8}
+Beam Search is a heuristic search algorithm that balances search quality and computational efficiency by exploring only the most promising candidates at each level. It is widely used in machine translation, speech recognition, path planning, and modern LLM decoding because it provides better results than greedy search while remaining computationally tractable for large search spaces.
+
+[Beam Search Implementation](./Beam%20Search.ipynb)
