@@ -290,7 +290,7 @@ Ridge Regression extends Linear Regression by introducing L2 regularization. It 
 
 ## 4. Lasso Regression
 
-Adds L1 Regularization.
+Lasso (Least Absolute Shrinkage and Selection Operator) Regression is a regularized version of Linear Regression that adds an **L1 penalty** to the cost function. Unlike Ridge Regression, Lasso can shrink some coefficients exactly to zero, effectively performing **feature selection**.
 
 ### Cost Function
 
@@ -299,10 +299,6 @@ J = RSS + λΣ|β|
 Advantages:
 - Feature selection
 - Removes less important features
-
-## Lasso Regression
-
-Lasso (Least Absolute Shrinkage and Selection Operator) Regression is a regularized version of Linear Regression that adds an **L1 penalty** to the cost function. Unlike Ridge Regression, Lasso can shrink some coefficients exactly to zero, effectively performing **feature selection**.
 
 ### Cost Function
 
@@ -345,141 +341,6 @@ As the value of **λ (Lambda)** increases, more coefficients are pushed toward z
 - Handles high-dimensional datasets
 - Produces simpler and more interpretable models
 - Removes irrelevant features
-
----
-
-## Lasso Regression from Scratch (Gradient Descent)
-
-```python
-import numpy as np
-
-
-class LassoRegression:
-    def __init__(
-        self,
-        alpha=1.0,
-        learning_rate=0.01,
-        epochs=1000
-    ):
-        self.alpha = alpha
-        self.learning_rate = learning_rate
-        self.epochs = epochs
-
-        self.weights = None
-        self.bias = 0
-
-    def fit(self, X, y):
-
-        samples, features = X.shape
-
-        self.weights = np.zeros(features)
-
-        for _ in range(self.epochs):
-
-            predictions = (
-                np.dot(X, self.weights)
-                + self.bias
-            )
-
-            error = predictions - y
-
-            dw = (
-                (1 / samples)
-                * np.dot(X.T, error)
-            )
-
-            l1_penalty = (
-                self.alpha
-                * np.sign(self.weights)
-                / samples
-            )
-
-            dw += l1_penalty
-
-            db = (1 / samples) * np.sum(error)
-
-            self.weights -= (
-                self.learning_rate * dw
-            )
-
-            self.bias -= (
-                self.learning_rate * db
-            )
-
-    def predict(self, X):
-        return (
-            np.dot(X, self.weights)
-            + self.bias
-        )
-```
-
----
-
-## Example Usage
-
-```python
-import numpy as np
-
-X = np.array([
-    [1, 2],
-    [2, 4],
-    [3, 6],
-    [4, 8],
-    [5, 10]
-])
-
-y = np.array([2, 4, 6, 8, 10])
-
-model = LassoRegression(
-    alpha=0.1,
-    learning_rate=0.01,
-    epochs=5000
-)
-
-model.fit(X, y)
-
-predictions = model.predict(X)
-
-print("Weights:")
-print(model.weights)
-
-print("Bias:")
-print(model.bias)
-```
-
----
-
-## Scikit-Learn Implementation
-
-```python
-from sklearn.linear_model import Lasso
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import r2_score
-import pandas as pd
-
-data = pd.read_csv("data.csv")
-
-X = data.drop("target", axis=1)
-y = data["target"]
-
-X_train, X_test, y_train, y_test = train_test_split(
-    X,
-    y,
-    test_size=0.2,
-    random_state=42
-)
-
-model = Lasso(alpha=0.1)
-
-model.fit(X_train, y_train)
-
-predictions = model.predict(X_test)
-
-print("R² Score:", r2_score(y_test, predictions))
-print("Coefficients:", model.coef_)
-```
-
----
 
 ## Linear vs Ridge vs Lasso
 
