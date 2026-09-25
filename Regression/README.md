@@ -1013,14 +1013,14 @@ Decision Tree Regression is a powerful non-linear machine learning algorithm tha
 
 ---
 
-## 8. Random Forest Regression
+# 8. Random Forest Regression
 
 Random Forest Regression is an ensemble learning algorithm that combines multiple Decision Trees to improve prediction accuracy and reduce overfitting. Instead of relying on a single decision tree, Random Forest builds many trees using different subsets of data and features, then averages their predictions.
 
 It is one of the most popular machine learning algorithms for regression tasks because it can capture complex non-linear relationships while maintaining strong generalization performance.
 
 
-### How Random Forest Works
+## How Random Forest Works
 
 1. Create multiple bootstrap samples from the training dataset.
 2. Build a Decision Tree for each sample.
@@ -1045,7 +1045,7 @@ Final Prediction
 ```
 
 
-### Prediction Formula
+## Prediction Formula
 
 For a Random Forest containing N trees:
 
@@ -1077,7 +1077,6 @@ Where:
 - Automatically captures feature interactions
 - Works with large datasets
 
---------------------------------------------------
 
 ## Random Forest Regression Using Scikit-Learn
 
