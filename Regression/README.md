@@ -431,7 +431,7 @@ Lasso Regression extends Linear Regression by adding L1 regularization. Its key 
 
 ---
 
-## 5. Elastic Net Regression
+# 5. Elastic Net Regression
 
 Combination of Ridge and Lasso.
 
