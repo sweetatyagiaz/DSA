@@ -627,11 +627,10 @@ The objective is:
 - Effective in high-dimensional spaces
 - Supports multiple kernel functions
 
---------------------------------------------------
 
 ## Types of SVR Kernels
 
-### Linear Kernel
+### 1. Linear Kernel
 
 ```text
 K(xi, xj) = xi · xj
@@ -639,7 +638,7 @@ K(xi, xj) = xi · xj
 
 Used when data is approximately linear.
 
-### Polynomial Kernel
+### 2. Polynomial Kernel
 
 ```text
 K(xi, xj) = (γ(xi · xj) + r)^d
@@ -647,7 +646,7 @@ K(xi, xj) = (γ(xi · xj) + r)^d
 
 Used for polynomial relationships.
 
-### Radial Basis Function (RBF)
+### 3. Radial Basis Function (RBF)
 
 ```text
 K(xi, xj) = exp(-γ ||xi - xj||²)
@@ -655,7 +654,7 @@ K(xi, xj) = exp(-γ ||xi - xj||²)
 
 Most commonly used kernel.
 
-### Sigmoid Kernel
+### 4. Sigmoid Kernel
 
 ```text
 K(xi, xj) = tanh(γ(xi · xj) + r)
@@ -663,7 +662,6 @@ K(xi, xj) = tanh(γ(xi · xj) + r)
 
 Inspired by neural networks.
 
---------------------------------------------------
 
 ## SVR Implementation Using Scikit-Learn
 
