@@ -1078,126 +1078,9 @@ Where:
 - Works with large datasets
 
 
-## Random Forest Regression Using Scikit-Learn
-
-```python
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import (
-    mean_squared_error,
-    r2_score
-)
-import pandas as pd
-
-# Load Dataset
-data = pd.read_csv("data.csv")
-
-X = data.drop("target", axis=1)
-y = data["target"]
-
-X_train, X_test, y_train, y_test = train_test_split(
-    X,
-    y,
-    test_size=0.2,
-    random_state=42
-)
-
-model = RandomForestRegressor(
-    n_estimators=100,
-    max_depth=10,
-    random_state=42
-)
-
-model.fit(X_train, y_train)
-
-predictions = model.predict(X_test)
-
-print(
-    "RMSE:",
-    mean_squared_error(
-        y_test,
-        predictions,
-        squared=False
-    )
-)
-
-print(
-    "R² Score:",
-    r2_score(
-        y_test,
-        predictions
-    )
-)
-```
-
---------------------------------------------------
-
-## Example with Sample Data
-
-```python
-import numpy as np
-from sklearn.ensemble import RandomForestRegressor
-
-X = np.array([
-    [1],
-    [2],
-    [3],
-    [4],
-    [5],
-    [6]
-])
-
-y = np.array([
-    2,
-    5,
-    10,
-    17,
-    26,
-    37
-])
-
-model = RandomForestRegressor(
-    n_estimators=100,
-    random_state=42
-)
-
-model.fit(X, y)
-
-predictions = model.predict(X)
-
-print(predictions)
-```
-
---------------------------------------------------
-
-## Feature Importance
-
-Random Forest can automatically estimate feature importance.
-
-```python
-for feature, importance in zip(
-    X.columns,
-    model.feature_importances_
-):
-    print(
-        feature,
-        importance
-    )
-```
-
-Example Output:
-
-```text
-Income        0.42
-Age           0.31
-Experience    0.27
-```
-
---------------------------------------------------
-
 ## Important Hyperparameters
 
-### n_estimators
+### 1. n_estimators
 
 Number of trees in the forest.
 
@@ -1212,9 +1095,8 @@ RandomForestRegressor(
 | Small | Faster Training |
 | Large | Better Accuracy |
 
---------------------------------------------------
 
-### max_depth
+### 2. max_depth
 
 Maximum depth of each tree.
 
@@ -1229,9 +1111,8 @@ RandomForestRegressor(
 | Small | Underfitting |
 | Large | Overfitting Risk |
 
---------------------------------------------------
 
-### min_samples_split
+### 3. min_samples_split
 
 Minimum samples required to split a node.
 
@@ -1241,9 +1122,8 @@ RandomForestRegressor(
 )
 ```
 
---------------------------------------------------
 
-### min_samples_leaf
+### 4. min_samples_leaf
 
 Minimum samples required in a leaf node.
 
@@ -1253,9 +1133,8 @@ RandomForestRegressor(
 )
 ```
 
---------------------------------------------------
 
-### max_features
+### 5. max_features
 
 Number of features considered for each split.
 
@@ -1265,7 +1144,6 @@ RandomForestRegressor(
 )
 ```
 
---------------------------------------------------
 
 ## Hyperparameter Tuning
 
