@@ -695,7 +695,6 @@ Controls influence of training samples.
 | Small | Smooth Boundary |
 | Large | Complex Boundary |
 
---------------------------------------------------
 
 ## Hyperparameter Tuning
 
@@ -721,7 +720,6 @@ grid.fit(X, y)
 print(grid.best_params_)
 ```
 
---------------------------------------------------
 
 ## Feature Scaling
 
@@ -746,7 +744,6 @@ model = Pipeline([
 model.fit(X_train, y_train)
 ```
 
---------------------------------------------------
 
 ## Linear Regression vs SVR
 
@@ -759,7 +756,6 @@ model.fit(X_train, y_train)
 | Feature Scaling Required | Optional | Recommended |
 | Computational Cost | Low | High |
 
---------------------------------------------------
 
 ## Advantages
 
@@ -769,7 +765,6 @@ model.fit(X_train, y_train)
 - Works well in high-dimensional spaces
 - Strong generalization capability
 
---------------------------------------------------
 
 ## Limitations
 
@@ -778,7 +773,6 @@ model.fit(X_train, y_train)
 - Hyperparameter tuning can be challenging
 - Training time increases with dataset size
 
---------------------------------------------------
 
 ## Applications
 
@@ -791,7 +785,6 @@ model.fit(X_train, y_train)
 - Risk Modeling
 - Scientific Data Analysis
 
---------------------------------------------------
 
 ## Best Practices
 
@@ -801,7 +794,6 @@ model.fit(X_train, y_train)
 4. Use cross-validation for evaluation.
 5. Compare performance against Linear Regression and Random Forest Regression.
 
---------------------------------------------------
 
 ## Conclusion
 
