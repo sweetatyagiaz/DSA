@@ -1346,7 +1346,6 @@ GradientBoostingRegressor(
 | Large | Better Learning |
 | Too Large | Overfitting Risk |
 
---------------------------------------------------
 
 ### learning_rate
 
@@ -1364,7 +1363,6 @@ GradientBoostingRegressor(
 | Low | Better Generalization |
 | Very Low | Requires More Trees |
 
---------------------------------------------------
 
 ### max_depth
 
@@ -1381,7 +1379,6 @@ GradientBoostingRegressor(
 | Small | Simpler Model |
 | Large | More Complex Model |
 
---------------------------------------------------
 
 ### subsample
 
@@ -1395,7 +1392,6 @@ GradientBoostingRegressor(
 
 Values less than 1.0 introduce randomness and can improve generalization.
 
---------------------------------------------------
 
 ## Hyperparameter Tuning
 
