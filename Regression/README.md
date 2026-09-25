@@ -400,14 +400,14 @@ print(grid.best_params_)
 - Improves interpretability
 - Works well with high-dimensional data
 
-### Limitations
+## Limitations
 
 - Can remove useful correlated features
 - Requires feature scaling
 - Sensitive to the alpha parameter
 - Optimization is more complex than Linear Regression
 
-### Applications
+## Applications
 
 - Financial forecasting
 - Stock market prediction
@@ -417,8 +417,6 @@ print(grid.best_params_)
 - Risk modeling
 - Feature selection in large datasets
 
----
-
 ## Best Practices
 
 1. Standardize features before training.
@@ -426,8 +424,6 @@ print(grid.best_params_)
 3. Compare results with Ridge Regression.
 4. Use when feature selection is important.
 5. Monitor validation performance to avoid underfitting.
-
----
 
 ## Conclusion
 
