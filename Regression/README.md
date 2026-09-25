@@ -972,8 +972,6 @@ Experience   0.25
 | Handles Outliers | Poor | Better |
 | Captures Complex Patterns | ❌ | ✅ |
 
---------------------------------------------------
-
 ## Advantages
 
 - Handles non-linear relationships
@@ -982,16 +980,12 @@ Experience   0.25
 - Works with numerical and categorical data
 - Captures interactions automatically
 
---------------------------------------------------
-
 ## Limitations
 
 - Prone to overfitting
 - Sensitive to small data changes
 - Can create complex trees
 - Lower generalization than ensemble methods
-
---------------------------------------------------
 
 ## Applications
 
@@ -1004,8 +998,6 @@ Experience   0.25
 - Energy Consumption Prediction
 - Healthcare Analytics
 
---------------------------------------------------
-
 ## Best Practices
 
 1. Limit tree depth to avoid overfitting.
@@ -1013,8 +1005,6 @@ Experience   0.25
 3. Tune max_depth and min_samples_leaf.
 4. Compare performance with Random Forest and Gradient Boosting.
 5. Monitor training vs validation performance.
-
---------------------------------------------------
 
 ## Conclusion
 
