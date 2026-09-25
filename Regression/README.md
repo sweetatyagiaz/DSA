@@ -1169,8 +1169,6 @@ grid.fit(X, y)
 print(grid.best_params_)
 ```
 
---------------------------------------------------
-
 ## Decision Tree vs Random Forest
 
 | Feature | Decision Tree | Random Forest |
@@ -1182,7 +1180,6 @@ print(grid.best_params_)
 | Interpretability | High | Medium |
 | Generalization | Medium | High |
 
---------------------------------------------------
 
 ## Advantages
 
@@ -1193,7 +1190,6 @@ print(grid.best_params_)
 - Supports feature importance analysis
 - Minimal preprocessing required
 
---------------------------------------------------
 
 ## Limitations
 
@@ -1202,7 +1198,6 @@ print(grid.best_params_)
 - Less interpretable
 - Large models can be computationally expensive
 
---------------------------------------------------
 
 ## Applications
 
@@ -1215,7 +1210,6 @@ print(grid.best_params_)
 - Risk Assessment
 - Energy Consumption Forecasting
 
---------------------------------------------------
 
 ## Best Practices
 
@@ -1225,7 +1219,6 @@ print(grid.best_params_)
 4. Limit tree depth if overfitting occurs.
 5. Compare against Gradient Boosting models.
 
---------------------------------------------------
 
 ## Time Complexity
 
@@ -1249,7 +1242,6 @@ Prediction Complexity:
 O(T × log(N))
 ```
 
---------------------------------------------------
 
 ## Conclusion
 
