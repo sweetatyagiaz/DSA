@@ -124,6 +124,7 @@ Where:
 3. Scale features before training.
 4. Monitor overfitting using validation data.
 5. Consider Ridge or Lasso regularization for higher-degree models.
+___
 
 ### Conclusion
 
