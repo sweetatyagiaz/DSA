@@ -1015,19 +1015,14 @@ Decision Tree Regression is a powerful non-linear machine learning algorithm tha
 
 ## 8. Random Forest Regression
 
-Ensemble of multiple decision trees.
+Random Forest Regression is an ensemble learning algorithm that combines multiple Decision Trees to improve prediction accuracy and reduce overfitting. Instead of relying on a single decision tree, Random Forest builds many trees using different subsets of data and features, then averages their predictions.
+
+It is one of the most popular machine learning algorithms for regression tasks because it can capture complex non-linear relationships while maintaining strong generalization performance.
 
 Advantages:
 - High accuracy
 - Reduces overfitting
 
-## Random Forest Regression
-
-Random Forest Regression is an ensemble learning algorithm that combines multiple Decision Trees to improve prediction accuracy and reduce overfitting. Instead of relying on a single decision tree, Random Forest builds many trees using different subsets of data and features, then averages their predictions.
-
-It is one of the most popular machine learning algorithms for regression tasks because it can capture complex non-linear relationships while maintaining strong generalization performance.
-
---------------------------------------------------
 
 ### How Random Forest Works
 
