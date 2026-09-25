@@ -663,85 +663,9 @@ K(xi, xj) = tanh(γ(xi · xj) + r)
 Inspired by neural networks.
 
 
-## SVR Implementation Using Scikit-Learn
-
-```python
-from sklearn.svm import SVR
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import r2_score
-import pandas as pd
-
-# Load Dataset
-data = pd.read_csv("data.csv")
-
-X = data.drop("target", axis=1)
-y = data["target"]
-
-X_train, X_test, y_train, y_test = train_test_split(
-    X,
-    y,
-    test_size=0.2,
-    random_state=42
-)
-
-model = SVR(
-    kernel="rbf",
-    C=100,
-    epsilon=0.1,
-    gamma="scale"
-)
-
-model.fit(X_train, y_train)
-
-predictions = model.predict(X_test)
-
-print("R² Score:", r2_score(y_test, predictions))
-```
-
---------------------------------------------------
-
-## Example with Synthetic Data
-
-```python
-import numpy as np
-from sklearn.svm import SVR
-
-X = np.array([
-    [1],
-    [2],
-    [3],
-    [4],
-    [5],
-    [6]
-])
-
-y = np.array([
-    1.5,
-    3.8,
-    8.9,
-    15.2,
-    24.8,
-    36.1
-])
-
-model = SVR(
-    kernel="rbf",
-    C=100,
-    epsilon=0.1
-)
-
-model.fit(X, y)
-
-predictions = model.predict(X)
-
-print(predictions)
-```
-
---------------------------------------------------
-
 ## Hyperparameters
 
-### C (Regularization)
+#### 1. C (Regularization)
 
 Controls trade-off between:
 
@@ -753,7 +677,7 @@ Controls trade-off between:
 | Small C | More Regularization |
 | Large C | Less Regularization |
 
-### Epsilon (ε)
+#### 2. Epsilon (ε)
 
 Defines acceptable prediction error.
 
@@ -762,7 +686,7 @@ Defines acceptable prediction error.
 | Small ε | More Sensitive |
 | Large ε | Less Sensitive |
 
-### Gamma (γ)
+#### 3. Gamma (γ)
 
 Controls influence of training samples.
 
