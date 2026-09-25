@@ -568,11 +568,323 @@ Elastic Net Regression combines the feature selection capability of Lasso Regres
 
 # 6. Support Vector Regression (SVR)
 
-Uses Support Vector Machine concepts for regression.
+Support Vector Regression (SVR) is a regression algorithm based on **Support Vector Machines (SVM)**. Unlike Linear Regression, SVR attempts to fit the best line (or hyperplane) within a specified error margin called **epsilon (ε)** while maximizing the margin around the prediction boundary.
+
+SVR is highly effective for both **linear** and **non-linear** regression problems.
 
 Advantages:
 - Works well on non-linear data
 - Robust to outliers
+
+### Cost Function
+
+#### Linear Regression
+
+Linear Regression minimizes:
+
+```text
+RSS = Σ(yi - ŷi)²
+```
+
+#### Support Vector Regression
+
+SVR minimizes:
+
+```text
+½ ||w||² + C × Σ(ξi + ξi*)
+```
+
+Subject to:
+
+```text
+|yi - ŷi| ≤ ε
+```
+
+Where:
+
+| Symbol | Description |
+|---------|------------|
+| w | Weight Vector |
+| C | Regularization Parameter |
+| ε | Epsilon Margin |
+| ξi | Slack Variable |
+| ξi* | Slack Variable |
+| yi | Actual Value |
+| ŷi | Predicted Value |
+
+The objective is:
+
+1. Maximize Margin
+2. Minimize Prediction Error
+3. Control Model Complexity
+
+--------------------------------------------------
+
+## Why Use SVR?
+
+- Handles non-linear relationships
+- Works well on small and medium datasets
+- Robust to outliers
+- Effective in high-dimensional spaces
+- Supports multiple kernel functions
+
+--------------------------------------------------
+
+## Types of SVR Kernels
+
+### Linear Kernel
+
+```text
+K(xi, xj) = xi · xj
+```
+
+Used when data is approximately linear.
+
+### Polynomial Kernel
+
+```text
+K(xi, xj) = (γ(xi · xj) + r)^d
+```
+
+Used for polynomial relationships.
+
+### Radial Basis Function (RBF)
+
+```text
+K(xi, xj) = exp(-γ ||xi - xj||²)
+```
+
+Most commonly used kernel.
+
+### Sigmoid Kernel
+
+```text
+K(xi, xj) = tanh(γ(xi · xj) + r)
+```
+
+Inspired by neural networks.
+
+--------------------------------------------------
+
+## SVR Implementation Using Scikit-Learn
+
+```python
+from sklearn.svm import SVR
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score
+import pandas as pd
+
+# Load Dataset
+data = pd.read_csv("data.csv")
+
+X = data.drop("target", axis=1)
+y = data["target"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    random_state=42
+)
+
+model = SVR(
+    kernel="rbf",
+    C=100,
+    epsilon=0.1,
+    gamma="scale"
+)
+
+model.fit(X_train, y_train)
+
+predictions = model.predict(X_test)
+
+print("R² Score:", r2_score(y_test, predictions))
+```
+
+--------------------------------------------------
+
+## Example with Synthetic Data
+
+```python
+import numpy as np
+from sklearn.svm import SVR
+
+X = np.array([
+    [1],
+    [2],
+    [3],
+    [4],
+    [5],
+    [6]
+])
+
+y = np.array([
+    1.5,
+    3.8,
+    8.9,
+    15.2,
+    24.8,
+    36.1
+])
+
+model = SVR(
+    kernel="rbf",
+    C=100,
+    epsilon=0.1
+)
+
+model.fit(X, y)
+
+predictions = model.predict(X)
+
+print(predictions)
+```
+
+--------------------------------------------------
+
+## Hyperparameters
+
+### C (Regularization)
+
+Controls trade-off between:
+
+- Smooth Model
+- Accurate Predictions
+
+| C Value | Behavior |
+|----------|-----------|
+| Small C | More Regularization |
+| Large C | Less Regularization |
+
+### Epsilon (ε)
+
+Defines acceptable prediction error.
+
+| ε Value | Behavior |
+|----------|-----------|
+| Small ε | More Sensitive |
+| Large ε | Less Sensitive |
+
+### Gamma (γ)
+
+Controls influence of training samples.
+
+| Gamma | Behavior |
+|---------|----------|
+| Small | Smooth Boundary |
+| Large | Complex Boundary |
+
+--------------------------------------------------
+
+## Hyperparameter Tuning
+
+```python
+from sklearn.model_selection import GridSearchCV
+from sklearn.svm import SVR
+
+params = {
+    "C": [0.1, 1, 10, 100],
+    "epsilon": [0.01, 0.1, 0.5, 1],
+    "gamma": ["scale", "auto"],
+    "kernel": ["rbf", "linear"]
+}
+
+grid = GridSearchCV(
+    SVR(),
+    params,
+    cv=5
+)
+
+grid.fit(X, y)
+
+print(grid.best_params_)
+```
+
+--------------------------------------------------
+
+## Feature Scaling
+
+SVR is highly sensitive to feature scaling.
+
+Always standardize features before training:
+
+```python
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.svm import SVR
+
+model = Pipeline([
+    ("scaler", StandardScaler()),
+    ("svr", SVR(
+        kernel="rbf",
+        C=100,
+        epsilon=0.1
+    ))
+])
+
+model.fit(X_train, y_train)
+```
+
+--------------------------------------------------
+
+## Linear Regression vs SVR
+
+| Feature | Linear Regression | SVR |
+|----------|------------------|-----|
+| Linear Data | ✅ | ✅ |
+| Non-Linear Data | ❌ | ✅ |
+| Outlier Robustness | ❌ | ✅ |
+| Kernel Support | ❌ | ✅ |
+| Feature Scaling Required | Optional | Recommended |
+| Computational Cost | Low | High |
+
+--------------------------------------------------
+
+## Advantages
+
+- Handles non-linear data effectively
+- Robust to outliers
+- Supports multiple kernels
+- Works well in high-dimensional spaces
+- Strong generalization capability
+
+--------------------------------------------------
+
+## Limitations
+
+- Computationally expensive on large datasets
+- Requires feature scaling
+- Hyperparameter tuning can be challenging
+- Training time increases with dataset size
+
+--------------------------------------------------
+
+## Applications
+
+- Stock Price Prediction
+- Demand Forecasting
+- Energy Consumption Prediction
+- Time Series Regression
+- Healthcare Analytics
+- Economic Forecasting
+- Risk Modeling
+- Scientific Data Analysis
+
+--------------------------------------------------
+
+## Best Practices
+
+1. Standardize all features.
+2. Start with the RBF kernel.
+3. Tune C, epsilon, and gamma using Grid Search.
+4. Use cross-validation for evaluation.
+5. Compare performance against Linear Regression and Random Forest Regression.
+
+--------------------------------------------------
+
+## Conclusion
+
+Support Vector Regression (SVR) extends the principles of Support Vector Machines to regression tasks. By introducing an epsilon-insensitive margin and kernel-based learning, SVR can model complex non-linear relationships while maintaining strong generalization performance. It is particularly effective for medium-sized datasets where prediction accuracy is more important than training speed.
 
 ---
 
