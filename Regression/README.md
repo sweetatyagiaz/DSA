@@ -143,6 +143,306 @@ Advantages:
 - Reduces overfitting
 - Handles multicollinearity
 
+
+## Ridge Regression
+
+Ridge Regression is a regularized version of Linear Regression that adds an **L2 penalty** term to the cost function. This penalty discourages large coefficient values, helping to reduce overfitting and improve model generalization.
+
+### Mathematical Formula
+
+Linear Regression minimizes:
+
+\[
+RSS = \sum_{i=1}^{n}(y_i - \hat{y}_i)^2
+\]
+
+Ridge Regression adds an L2 penalty:
+
+\[
+Cost = RSS + \lambda \sum_{j=1}^{p} \beta_j^2
+\]
+
+Where:
+
+- \(RSS\) = Residual Sum of Squares
+- \(\lambda\) = Regularization parameter
+- \(\beta_j\) = Model coefficients
+
+### Effect of λ (Lambda)
+
+| Lambda Value | Effect |
+|-------------|---------|
+| λ = 0 | Equivalent to Linear Regression |
+| Small λ | Slight regularization |
+| Large λ | Strong regularization |
+| Very Large λ | Underfitting |
+
+### Why Use Ridge Regression?
+
+- Reduces overfitting
+- Handles multicollinearity
+- Stabilizes coefficient estimates
+- Improves generalization
+- Works well with many correlated features
+
+---
+
+## Ridge Regression from Scratch
+
+```python
+import numpy as np
+
+
+class RidgeRegression:
+    def __init__(self, alpha=1.0):
+        self.alpha = alpha
+        self.coefficients = None
+
+    def fit(self, X, y):
+        X = np.array(X)
+        y = np.array(y)
+
+        rows, cols = X.shape
+
+        identity = np.eye(cols)
+
+        self.coefficients = np.linalg.inv(
+            X.T @ X + self.alpha * identity
+        ) @ X.T @ y
+
+    def predict(self, X):
+        X = np.array(X)
+        return X @ self.coefficients
+
+    def score(self, X, y):
+        predictions = self.predict(X)
+
+        ss_total = np.sum((y - np.mean(y)) ** 2)
+        ss_residual = np.sum((y - predictions) ** 2)
+
+        return 1 - (ss_residual / ss_total)
+```
+
+---
+
+## Example Usage
+
+```python
+import numpy as np
+
+X = np.array([
+    [1],
+    [2],
+    [3],
+    [4],
+    [5]
+])
+
+y = np.array([3, 5, 7, 9, 11])
+
+model = RidgeRegression(alpha=1.0)
+
+model.fit(X, y)
+
+predictions = model.predict(X)
+
+print("Coefficients:")
+print(model.coefficients)
+
+print("\nPredictions:")
+print(predictions)
+
+print("\nR² Score:")
+print(model.score(X, y))
+```
+
+---
+
+## Ridge Regression with Gradient Descent
+
+```python
+import numpy as np
+
+
+class RidgeRegressionGD:
+    def __init__(
+        self,
+        learning_rate=0.01,
+        epochs=1000,
+        alpha=1.0
+    ):
+        self.learning_rate = learning_rate
+        self.epochs = epochs
+        self.alpha = alpha
+
+        self.weights = None
+        self.bias = 0
+
+    def fit(self, X, y):
+
+        samples, features = X.shape
+
+        self.weights = np.zeros(features)
+
+        for _ in range(self.epochs):
+
+            predictions = (
+                np.dot(X, self.weights)
+                + self.bias
+            )
+
+            error = predictions - y
+
+            dw = (
+                (1 / samples)
+                * (X.T @ error)
+                + (self.alpha / samples)
+                * self.weights
+            )
+
+            db = (1 / samples) * np.sum(error)
+
+            self.weights -= (
+                self.learning_rate * dw
+            )
+
+            self.bias -= (
+                self.learning_rate * db
+            )
+
+    def predict(self, X):
+        return np.dot(X, self.weights) + self.bias
+```
+
+---
+
+## Scikit-Learn Implementation
+
+```python
+from sklearn.linear_model import Ridge
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score
+import pandas as pd
+
+# Load data
+data = pd.read_csv("data.csv")
+
+X = data.drop("target", axis=1)
+y = data["target"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    random_state=42
+)
+
+model = Ridge(alpha=1.0)
+
+model.fit(X_train, y_train)
+
+predictions = model.predict(X_test)
+
+print("R² Score:", r2_score(y_test, predictions))
+```
+
+---
+
+## Linear Regression vs Ridge Regression
+
+| Feature | Linear Regression | Ridge Regression |
+|----------|------------------|------------------|
+| Regularization | ❌ | ✅ L2 |
+| Handles Multicollinearity | ❌ | ✅ |
+| Overfitting Control | ❌ | ✅ |
+| Feature Selection | ❌ | ❌ |
+| Coefficients Shrinkage | ❌ | ✅ |
+
+---
+
+## Choosing the Alpha Parameter
+
+Common values:
+
+```python
+alphas = [
+    0.001,
+    0.01,
+    0.1,
+    1,
+    10,
+    100
+]
+```
+
+Use Grid Search:
+
+```python
+from sklearn.linear_model import Ridge
+from sklearn.model_selection import GridSearchCV
+
+params = {
+    "alpha": [0.001, 0.01, 0.1, 1, 10, 100]
+}
+
+grid = GridSearchCV(
+    Ridge(),
+    params,
+    cv=5
+)
+
+grid.fit(X, y)
+
+print(grid.best_params_)
+```
+
+---
+
+## Advantages
+
+- Prevents overfitting
+- Handles correlated features
+- Improves model stability
+- Reduces coefficient variance
+- Works well with high-dimensional data
+
+---
+
+## Limitations
+
+- Does not perform feature selection
+- All features remain in the model
+- Requires tuning of alpha
+- Less interpretable than sparse models
+
+---
+
+## Applications
+
+- Stock price prediction
+- Financial forecasting
+- Healthcare analytics
+- Demand forecasting
+- Marketing analytics
+- Risk assessment
+- Economic modeling
+
+---
+
+## Best Practices
+
+1. Standardize features before training.
+2. Tune alpha using cross-validation.
+3. Compare against Linear Regression baseline.
+4. Use Ridge when multicollinearity exists.
+5. Monitor validation performance to avoid underfitting.
+
+---
+
+## Conclusion
+
+Ridge Regression extends Linear Regression by introducing L2 regularization. It reduces overfitting, improves model stability, and performs particularly well when features are highly correlated. It is one of the most widely used regularization techniques in machine learning and predictive analytics.
+
 ---
 
 ## 4. Lasso Regression
