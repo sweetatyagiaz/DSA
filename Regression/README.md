@@ -436,7 +436,7 @@ Lasso Regression extends Linear Regression by adding L1 regularization. Its key 
 Elastic Net Regression combines the strengths of both **Ridge Regression (L2 Regularization)** and **Lasso Regression (L1 Regularization)**. It is particularly useful when dealing with datasets that contain many correlated features.
 
 
-### Cost Function
+## Cost Function
 
 #### Linear Regression
 
