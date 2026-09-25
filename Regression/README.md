@@ -355,7 +355,7 @@ As the value of **λ (Lambda)** increases, more coefficients are pushed toward z
 
 ---
 
-## Choosing Alpha (λ)
+### Choosing Alpha (λ)
 
 Common values:
 
@@ -391,9 +391,8 @@ grid.fit(X, y)
 print(grid.best_params_)
 ```
 
----
 
-## Advantages
+### Advantages
 
 - Automatic feature selection
 - Reduces overfitting
@@ -401,18 +400,14 @@ print(grid.best_params_)
 - Improves interpretability
 - Works well with high-dimensional data
 
----
-
-## Limitations
+### Limitations
 
 - Can remove useful correlated features
 - Requires feature scaling
 - Sensitive to the alpha parameter
 - Optimization is more complex than Linear Regression
 
----
-
-## Applications
+### Applications
 
 - Financial forecasting
 - Stock market prediction
