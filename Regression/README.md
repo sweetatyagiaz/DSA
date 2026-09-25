@@ -392,7 +392,7 @@ print(grid.best_params_)
 ```
 
 
-### Advantages
+## Advantages
 
 - Automatic feature selection
 - Reduces overfitting
